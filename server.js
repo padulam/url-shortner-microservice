@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var port = process.env.PORT||8000;
-var domain = process.env.DOMAIN||'http://localhost:'+port;
+var domain = process.env.DOMAIN||'http://localhost:'+port + '/';
 var mongoose = require('mongoose');
 var ShortUrl = require('./app/models/url');
 var urlExists = require('url-exists');
@@ -33,7 +33,7 @@ app.get('/new/:url(*)', function(request, response){
 
 					response.json({
 						original_url: url,
-						short_url: domain + "/" + id
+						short_url: domain + id
 					});
 				});
 			});
