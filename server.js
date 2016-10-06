@@ -38,7 +38,7 @@ app.get('/new/:url(*)', function(request, response){
 				});
 			});
 		}else{
-			response.json('Wrong url format, make sure you have a valid protocol and real site.');
+			response.json({error: 'Wrong url format, make sure you have a valid protocol and real site.'});
 		}
 	});
 });
@@ -50,7 +50,7 @@ app.get('/:url(*)', function(request, response){
 		if(url.length!==0){
 			response.redirect(url[0].original_url);
 		}else{
-			response.json({error: "URL does not exist."});
+			response.json({error: 'URL does not exist.'});
 		}
 	})
 });
