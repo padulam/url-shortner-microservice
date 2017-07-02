@@ -1,12 +1,18 @@
 var express = require('express');
 var app = express();
 var port = process.env.PORT||8000;
-var domain = process.env.DOMAIN||'http://localhost:'+port + '/';
 var mongoose = require('mongoose');
 var ShortUrl = require('./app/models/url');
 var urlExists = require('url-exists');
 var db_uri = process.env.MONGOLAB_URI;
+require('dotenv').load();
+var domain = process.env.DOMAIN;
 
+if(process.env.NODE_ENV === 'test'){
+	db_uri = process.env.MONGOLAB_URI_TEST;
+}
+
+mongoose.Promise = require('bluebird');
 mongoose.connect(db_uri);
 
 app.use(express.static('public'));
@@ -55,4 +61,4 @@ app.get('/:url(*)', function(request, response){
 	})
 });
 
-app.listen(port);
+module.exports = app.listen(port);
